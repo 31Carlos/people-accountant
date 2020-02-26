@@ -11,10 +11,19 @@ class Home extends StatefulWidget {
 
 class _HomeState extends State<Home> {
   int n = 0;
+  String _infoText = "Pode Entrar!";
 
-  void _changePeople(int delta){
+  void _changePeople(int delta) {
     setState(() {
-      n += delta;
+      if ((n > 0 && n < 5) || (n == 0 && delta == 1) || (n == 5 && delta == -1)) {
+        n += delta;
+      }
+
+      if(n == 5){
+        _infoText = "Está cheio!";
+      } else {
+        _infoText = "Pode Entrar!";
+      }
     });
   }
 
@@ -45,7 +54,7 @@ class _HomeState extends State<Home> {
                           fontSize: 40.0,
                         )),
                     onPressed: () {
-                     _changePeople(1);
+                      _changePeople(1);
                     },
                   ),
                 ),
@@ -64,7 +73,7 @@ class _HomeState extends State<Home> {
                 )
               ],
             ),
-            Text("Pode Entrar",
+            Text(_infoText,
                 style: TextStyle(
                   color: Colors.white,
                   fontSize: 30,
