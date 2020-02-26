@@ -1,20 +1,26 @@
 import 'package:flutter/material.dart';
 
 void main() {
+  runApp(MaterialApp(title: "Contador de Pessoas", home: Home()));
+}
+
+class Home extends StatefulWidget {
+  @override
+  _HomeState createState() => _HomeState();
+}
+
+class _HomeState extends State<Home> {
   int n = 0;
-  void soma() {
-    n++;
-    print(n);
+
+  void _changePeople(int delta){
+    setState(() {
+      n += delta;
+    });
   }
 
-  void sub() {
-    n--;
-    print(n);
-  }
-
-  runApp(MaterialApp(
-    title: "Contador de Pessoas",
-    home: Stack(
+  @override
+  Widget build(BuildContext context) {
+    return Stack(
       children: <Widget>[
         Image.asset(
           "images/restaurant.jpg",
@@ -24,54 +30,49 @@ void main() {
         Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            Text(
-              "Pessoas: ${n}", 
-              style: TextStyle(
-                color: Colors.white, 
-                fontWeight: FontWeight.bold
-              )
-            ),
+            Text("Pessoas: $n",
+                style: TextStyle(
+                    color: Colors.white, fontWeight: FontWeight.bold)),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
                 Padding(
                   padding: EdgeInsets.all(10.0),
                   child: FlatButton(
-                    child: Text("+1", style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 40.0,
-                    )),
-                    onPressed: ()  {
-                      soma();
+                    child: Text("+1",
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 40.0,
+                        )),
+                    onPressed: () {
+                     _changePeople(1);
                     },
-                  ),  
+                  ),
                 ),
                 Padding(
                   padding: EdgeInsets.all(10.0),
                   child: FlatButton(
-                    child: Text("-1", style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 40.0,
-                    )),
-                    onPressed: ()  {
-                      sub();
+                    child: Text("-1",
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 40.0,
+                        )),
+                    onPressed: () {
+                      _changePeople(-1);
                     },
                   ),
                 )
               ],
             ),
-            Text(
-              "Pode Entrar", 
-              style: TextStyle(
-                color: Colors.white, 
-                fontSize: 30,
-                fontStyle: FontStyle.italic,
-              )
-            )
+            Text("Pode Entrar",
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 30,
+                  fontStyle: FontStyle.italic,
+                ))
           ],
         )
       ],
-    )
-    
-  ));
+    );
+  }
 }
